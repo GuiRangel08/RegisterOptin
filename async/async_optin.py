@@ -43,7 +43,7 @@ async def register_optins():
     log_filename = f'log/{COMPANY_ID}_{time.strftime("%Y%m%d-%H%M%S")}.log'
     logging.basicConfig(filename= log_filename, encoding='utf-8', level=logging.INFO)
 
-    limit = asyncio.Semaphore(2)
+    limit = aiohttp.TCPConnector(limit=5)
 
     async with limit:
         async with aiohttp.ClientSession() as session: 

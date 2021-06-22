@@ -1,5 +1,5 @@
-import os
 from optin import register_optin
+from file import *
 
 def main():
     company_id = get_company_id()
@@ -8,7 +8,7 @@ def main():
     token = get_token()
 
     if file_exists(f'csv/{csv_filename}'):
-        filepath = get_filepath(csv_filename)
+        filepath = get_csv_filepath(csv_filename)
         contacts = csv_to_array(filepath)
         register_optin(contacts, boker_number, company_id, token)
     else:
@@ -29,22 +29,8 @@ def get_broker_number():
 def get_token():
     return input('Qual o token da empresa?\n')
 
-def get_csv_filename():
-    filename = input('Qual o nome do arquivo .CSV?\n')
-    return filename + '.csv'
-
-def file_exists(filename):
-    if os.path.isfile(filename):
-        return True
-    else:
-        return False
-    
-def get_filepath(file):
-    filepath = os.path.abspath(f'csv/{file}')
-    return filepath
-
-def csv_to_array(csvFilePath):
-    file = open(csvFilePath, "r")
+def csv_to_array(csv_file_path):
+    file = open(csv_file_path, "r")
     optins = []
 
     for line in file:
