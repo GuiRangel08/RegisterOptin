@@ -1,9 +1,9 @@
 import logging
-import json
+import simplejson as json
 import requests  
 import time
+from file import *
 #from requests.exceptions import HTTPError
-
 
 BASE_URL_OPTIN = 'https://app3.mktzap.com.br/api/v1/optin'
 
@@ -23,10 +23,14 @@ def register_optin(contacts, broker_number,company_id, token):
 
     print(f"\nIniciando inclusão...")
 
-    log = []
     with requests.Session() as session:
 
-        log_filename = f'log/{company_id}_{time.strftime("%Y%m%d-%H%M%S")}.log'
+        log_dir = f'log/{company_id}/'
+        log_filename = f'{time.strftime("%Y%m%d-%H%M%S")}_{company_id}_{broker_number}.log'
+        log_filename = log_dir + log_filename
+        if not folder_exists(log_dir):
+            create_folder(log_dir)
+
         logging.basicConfig(filename= log_filename, encoding='utf-8', level=logging.INFO)
 
         for contact in CONTACTS:

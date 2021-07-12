@@ -6,7 +6,6 @@ def main(file):
     print(type(log_errors))
     write_in_file(log_errors, file)
 
-   
     print('Finalizado.')
     
 def get_log_file(file = False):

@@ -1,18 +1,21 @@
 from optin import register_optin
 from file import *
 
+
 def main():
     company_id = get_company_id()
-    csv_filename = get_csv_filename()
     boker_number = get_broker_number()
     token = get_token()
+    csv_filename = get_csv_filename()
 
     if file_exists(f'csv/{csv_filename}'):
         filepath = get_csv_filepath(csv_filename)
         contacts = csv_to_array(filepath)
         register_optin(contacts, boker_number, company_id, token)
     else:
-        print('Arquivo não existe\n')
+        return 'Arquivo não existe\n'
+    
+    return True
         
 def get_company_id():
     company_id = input('Qual o id da filial?\n')
@@ -41,4 +44,4 @@ def csv_to_array(csv_file_path):
     return optins
 
 if __name__ == '__main__':
-    main()
+     main()

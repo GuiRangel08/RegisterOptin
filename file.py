@@ -6,6 +6,15 @@ def file_exists(filename):
     else:
         return False
 
+def folder_exists(foldername):
+    if os.path.isdir(foldername):
+        return True
+    else:
+        return False
+
+def create_folder(foldename):
+    os.makedirs(foldename)
+
     
 def get_csv_filepath(file):
     filepath = os.path.abspath(f'csv/{file}')
