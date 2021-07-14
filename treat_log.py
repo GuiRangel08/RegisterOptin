@@ -1,10 +1,17 @@
 from file import *
+from getters import *
 
-def main(file):
-    log_errors = get_log_file(file)
+def main():
+    filename = get_log_filename()
+    company_id = get_company_id()
+    log_errors = get_log_file(filename)
+    path = f"log/errors_caught/{company_id}"
 
-    print(type(log_errors))
-    write_in_file(log_errors, file)
+    if not folder_exists(path):
+        create_folder(path)
+
+    write_list_in_file(log_errors, filename, path)
+
 
     print('Finalizado.')
     
@@ -18,11 +25,7 @@ def get_log_file(file = False):
         pass
     return log_errors
 
-def write_in_file(log_errors, file):
-    with open(f"log/errors_caught/{file}", "w") as f:
-        for x in log_errors:
-            print(type(x))
-            f.write(x + '\n')
+
 
 def catch_errors_from_log(log_file):
     errors = []
@@ -32,7 +35,6 @@ def catch_errors_from_log(log_file):
     return errors
     
 if __name__ == '__main__':
-    file = get_log_filename()
-    main(file)
+    main()
 
 # 1717_20210620-000345

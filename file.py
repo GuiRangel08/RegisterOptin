@@ -41,3 +41,8 @@ def read_file(file):
             return lines
     else:
         print('Arquivo não existe!')
+
+def write_list_in_file(list, filename, path):
+    with open(f"{path}/{filename}", "w") as f:
+        for x in list:
+            f.write(x + '\n')
