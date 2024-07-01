@@ -7,7 +7,7 @@ from file import *
 
 BASE_URL_OPTIN = 'https://app3.mktzap.com.br/api/v1/optin'
 
-def register_optin(contacts, broker_number,company_id, token):
+def register_xls_optin(contacts, broker_number,company_id, token):
 
     global CONTACTS
     global BROKER_NUMBER
@@ -28,6 +28,7 @@ def register_optin(contacts, broker_number,company_id, token):
         log_dir = f'log/{company_id}/'
         log_filename = f'{time.strftime("%Y%m%d-%H%M%S")}_{company_id}_{broker_number}.log'
         log_filename = log_dir + log_filename
+
         if not folder_exists(log_dir):
             create_folder(log_dir)
 
@@ -35,17 +36,19 @@ def register_optin(contacts, broker_number,company_id, token):
 
         for contact in CONTACTS:
             try:
-                body_params = get_body_params(contact)
+                body_params = get_json_body_params(contact)
                 response = session.post(BASE_URL_OPTIN, data=body_params, headers=get_headers())
                 
                 logging.info(f'{time.strftime("%H:%M:%S")} - {COMPANY_ID} - {contact}: {json.loads(response.content)}')
             except Exception as err:
                 print(err)
                 exit()
+
     end_time = time.time() - start_time
+
     print(f'\nInclusão da lista de Optin finalizada em {end_time} segundos')
 
-def get_body_params(number):
+def get_json_body_params(number):
     data = {
         "broker_phone": BROKER_NUMBER,
         "contact_phone": number,
